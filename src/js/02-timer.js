@@ -29,7 +29,7 @@ flatpickr(input, options);
 btnStart.addEventListener('click', onBtnClick);
 
 function ticTimer() {
-  if (currentTime === null || intervalId === null) {
+  if (!currentTime || !intervalId) {
     return;
   }
 
@@ -43,12 +43,10 @@ function ticTimer() {
   console.log('tic', currentTime);
 }
 
-function onBtnClick() {
-  intervalId = setInterval(() => {
-    ticTimer();
-  }, delay);
-}
-
+function onBtnClick() { 
+if(intervalId) { clearInterval(intervalId) } // це варто добавити щоб старі інтервал не їли память
+intervalId = setInterval(() => { ticTimer(); 
+}, delay);}
 function onChoseClose(date) {
   const currentDate = new Date();
   console.log(date);
